@@ -10,6 +10,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif 
 ```
 还有就是这里手动打开NERDTree插件快捷键是Ctrl+f，具体请修改vimrc配置
+
 ---
 关于我的vim的一些配置和插件。  
 先上两张效果图  
