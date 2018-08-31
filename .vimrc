@@ -59,11 +59,11 @@ set guifont=Courier_New:h10:cANSI   " 设置字体
 syntax on           " 语法高亮  
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd vimenter * NERDTree "打开vim编辑模式时自动调出侧边栏
+"autocmd vimenter * NERDTree "打开vim编辑模式时自动调出侧边栏
 autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 "在没有指定文件时自动打开NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "满足剩下的唯一窗口是NERDTree时，依然可以关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "set ruler           " 显示标尺  

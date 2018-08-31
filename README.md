@@ -1,4 +1,16 @@
-# .vim
+# VIM的一些配置
+新增满足NERDTree插件的安装，以下需求请在.vimrc里自行添加
+```bash
+autocmd vimenter * NERDTree "自动打开NERDTree
+"没有指定文件自动打开NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif 
+"当vim启动打开目录时，自动打开NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif 
+```
+还有就是这里手动打开NERDTree插件快捷键是Ctrl+f，具体请修改vimrc配置
+---
 关于我的vim的一些配置和插件。  
 先上两张效果图  
 ![image](https://github.com/sqwlly/.vim/blob/master/images/vim_cpp.png)  
