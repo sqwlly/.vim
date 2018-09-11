@@ -21,7 +21,7 @@ Plugin 'git://git.wincent.com/command-t.git'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'Solarized'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,7 +86,7 @@ set foldenable      " 允许折叠
 
 set foldmethod=manual   " 手动折叠  
 
-set background=dark "背景使用黑色 
+"set background=dark "背景使用黑色 
 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 
@@ -102,7 +102,7 @@ endif
 
 " 设置配色方案
 
-colorscheme solarized
+colorscheme monokai
 
 "字体 
 
@@ -148,7 +148,7 @@ func SetTitle()
 
         call append(line(".")+1, "\# Author: sqwlly") 
 
-        call append(line(".")+2, "\# mail: 1476737838@qq.com") 
+        call append(line(".")+2, "\# mail: sqw.lucky@gmail.com") 
 
         call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
 
@@ -166,7 +166,7 @@ func SetTitle()
 
         call append(line(".")+1, "    > Author: sqwlly") 
 
-        call append(line(".")+2, "    > Mail: 1476737838@qq.com ") 
+        call append(line(".")+2, "    > Mail: sqw.lucky@gmail.com ") 
 
         call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
 
@@ -178,12 +178,20 @@ func SetTitle()
 
     if &filetype == 'cpp'
 
-        call append(line(".")+6, "#include<iostream>")
+        call append(line(".")+6, "#include<bits/stdc++.h>")
 
-        call append(line(".")+7, "using namespace std;")
+        call append(line(".")+7, "")
 
-        call append(line(".")+8, "")
+        call append(line(".")+8, "using namespace std;")
 
+        call append(line(".")+9, "")
+
+        call append(line(".")+10, "int main() {")
+
+        call append(line(".")+11, "")
+        call append(line(".")+12, "    return 0;")
+        
+		call append(line(".")+13, "}")
     endif
 
     if &filetype == 'c'
@@ -527,8 +535,9 @@ au BufRead,BufNewFile *  setfiletype txt
 
 :inoremap ) <c-r>=ClosePair(')')<CR>
 
-:inoremap { {<CR>}<ESC>O
+":inoremap { {<CR>}<ESC>O
 
+:inoremap { {}<ESC>i
 :inoremap } <c-r>=ClosePair('}')<CR>
 
 :inoremap [ []<ESC>i
