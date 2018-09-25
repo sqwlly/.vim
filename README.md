@@ -1,4 +1,4 @@
-# VIM的一些配置
+# Vim的一些简单配置
 新增满足NERDTree插件的安装，以下需求请在.vimrc里自行添加
 ```bash
 autocmd vimenter * NERDTree "自动打开NERDTree
