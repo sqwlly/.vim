@@ -3,10 +3,12 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 "
+"Plugin 'chriskempson/base16-vim' "加入base16-vim
 Plugin 'scrooloose/nerdtree' " 加入NERDTree
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -26,6 +28,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
+Plugin 'morhetz/gruvbox'
 filetype plugin on
 "
 " Brief help
@@ -86,7 +89,7 @@ set foldenable      " 允许折叠
 
 set foldmethod=manual   " 手动折叠  
 
-"set background=dark "背景使用黑色 
+set background=dark "背景使用黑色 
 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 
@@ -102,8 +105,9 @@ endif
 
 " 设置配色方案
 
-colorscheme monokai
-
+colorscheme gruvbox
+set guioptions=                 "去掉两边的scrollbar
+set guifont=Monaco:h17          "设置字体和字的大小
 "字体 
 
 "if (has("gui_running")) 
@@ -132,7 +136,7 @@ set fileencoding=utf-8
 
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.cc,*.[ch],*.sh,*.java exec ":call SetTitle()" 
 
 ""定义函数SetTitle，自动插入文件头 
 
@@ -178,20 +182,49 @@ func SetTitle()
 
     if &filetype == 'cpp'
 
-        call append(line(".")+6, "#include<bits/stdc++.h>")
 
-        call append(line(".")+7, "")
+        call append(line(".")+6,  "#include<bits/stdc++.h>")
+        call append(line(".")+7,  "using namespace std;")
+		call append(line(".")+8,  "#ifndef ONLINE_JUDGE")
+		call append(line(".")+9,  "#define dbg(args...)                                   \\")
+		call append(line(".")+10, "    do{                                                \\")
+		call append(line(".")+11, "	        cout << \"\\033[32;1m\" << #args << \" -> \";   \\")
+		call append(line(".")+12, "         err(args);                                    \\")
+		call append(line(".")+13, "      } while(0)                                       ")
+		call append(line(".")+14, "#else")
+		call append(line(".")+15, "#define dbg(...)")
+		call append(line(".")+16, "#endif")
 
-        call append(line(".")+8, "using namespace std;")
+		let lines = ["void err()","{","    cout << \"\\033[39;0m\" << endl;", "}"]
 
-        call append(line(".")+9, "")
+		call append(line('$'),lines)
+		
+		let lines1 = ["template <template <typename...> class T, typename t, typename... Args>","void err(T<t> a, Args... args)","{","    for (auto x : a) cout << x << ' ';","    err(args...);","}"]
 
-        call append(line(".")+10, "int main() {")
+		call append(line('$'),lines1)
+		
+		let lines2 = ["template <typename T, typename... Args>","void err(T a, Args... args)","{","    cout << a << ' ';","    err(args...);","}","/****************************************************************************************************/"]
+		call append(line('$'),lines2)
+        call append(line(".")+34, "")
 
-        call append(line(".")+11, "")
-        call append(line(".")+12, "    return 0;")
+        call append(line(".")+35, "")
+
+        call append(line(".")+36, "int main() {")
+
+        call append(line(".")+37, "#ifndef ONLINE_JUDGE")
         
-		call append(line(".")+13, "}")
+		call append(line(".")+38, "    freopen(\"input.in\",\"r\",stdin);")
+        
+		call append(line(".")+39, "#endif")
+
+		call append(line(".")+40, "    ios::sync_with_stdio(false); cin.tie(0);")
+
+		call append(line(".")+41, "")
+		
+		call append(line(".")+42, "    return 0;")
+	
+		call append(line(".")+43, "}")
+
     endif
 
     if &filetype == 'c'
@@ -315,7 +348,7 @@ set autoread
 
 " quickfix模式
 
-autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
+autocmd FileType c,cpp,cc map <buffer> <leader><space> :w<cr>:make<cr>
 
 "代码补全 
 
@@ -715,3 +748,4 @@ let g:neocomplete#sources#omni#input_patterns.php =
    \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.cpp =
    \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
